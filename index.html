@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Код для справки</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Кодик</h1>
+
+  <section class="alg">
+    <h2>itertools</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+itertools.permutations(iterable, r=None) #Генерирует все возможные перестановки элементов из итерируемого объекта длиной r. Если r не указано, используется длина итерируемого объекта.
+itertools.combinations(iterable, r) #Генерирует все возможные комбинации элементов из итерируемого объекта длиной r. В отличие от перестановок, порядок элементов в комбинациях не важен.
+itertools.combinations_with_replacement(iterable, r) #Генерирует все возможные комбинации элементов из итерируемого объекта длиной r, где элементы могут повторяться
+itertools.product(*iterables, repeat=1) #Генерирует декартово произведение входных итерируемых объектов. Это эквивалентно вложенным циклам.
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+  <section class="alg">
+    <h2>бфс</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+from collections import deque
+
+def bfs_adj_matrix(matrix, start):
+    n = len(matrix)  
+    visited = [False] * n
+    queue = deque([start])
+    visited[start] = True
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=" ")  
+        
+        for neighbor in range(n):
+            if matrix[vertex][neighbor] == 1 and not visited[neighbor]:
+                visited[neighbor] = True
+                queue.append(neighbor)
+
+# Пример матрицы 
+matrix = [
+    [0, 1, 1, 0],
+    [1, 0, 0, 1],
+    [1, 0, 0, 1],
+    [0, 1, 1, 0]
+]
+
+print("BFS:")
+bfs_adj_matrix(matrix, 0)  # Начинаем с вершины 0
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+  <section class="alg">
+    <h2>дфс</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+def dfs_iterative_adj_matrix(matrix, start):
+n = len(matrix)
+visited = [False] * n
+stack = [start]
+
+while stack:
+    vertex = stack.pop()
+    if not visited[vertex]:
+        visited[vertex] = True
+        print(vertex, end=" ")  # Обработка вершины
+        
+        # Добавляем соседей в стек (в обратном порядке для правильного порядка обхода)
+        for neighbor in reversed(range(n)):
+            if matrix[vertex][neighbor] == 1 and not visited[neighbor]:
+                stack.append(neighbor)
+
+# Пример использования
+print("\nDFS Iterative:")
+dfs_iterative_adj_matrix(matrix, 0)
+
+#или
+matrix= [
+    [1,0,1,0,0,1]
+    [1,0,1,0,0,1]
+    [0,0,1,0,0,1]
+    [1,0,1,0,0,1]
+    [0,0,1,0,0,1]
+    [0,0,1,0,0,1]
+
+]
+
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.append(start)
+
+    print(start)
+
+    for next in graph[start] - visited:
+        dfs(graph, next, visited)
+    return visited
+
+dfs(matrix,0)
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+  <section class="alg">
+    <h2>os math numpy</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+import os
+os.listdir(folder)#получение других папок в папаке
+
+import math
+print(math.comb(количество объектов,по сколько штук))
+
+import numpy as n
+n.cbrt() #кубический корень
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+  <section class="alg">
+    <h2>нод алгоритм евклида</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+def gcd(x, y):
+while y:
+    x, y = y, x % y
+return x
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+
+
+
+
+  <script>
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.previousElementSibling.querySelector('code');
+        const code = codeBlock.textContent;
+
+        navigator.clipboard.writeText(code).then(() => {
+          alert('Code copied to clipboard!');
+        }).catch(err => {
+          console.error('Failed to copy code: ', err);
+        });
+      });
+    });
+  </script>
+
+
+
+</body>
+</html>
