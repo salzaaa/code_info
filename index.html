@@ -117,6 +117,58 @@ dfs(matrix,0)
     <div class="info"></div>
   </section>
   <section class="alg">
+    <h2>матрица кратчайший путь</h2>
+    <div class="code_copy">
+      <pre><code class="language-python">
+
+from collections import deque
+
+def shortest_path_length(adj_matrix, start_vertex, end_vertex):
+    if not adj_matrix or start_vertex < 0 or end_vertex < 0 or start_vertex >= len(adj_matrix) or end_vertex >= len(adj_matrix):
+        return -1
+
+    queue = deque()
+    queue.append(start_vertex)
+
+    distances = [-1] * len(adj_matrix)
+    distances[start_vertex] = 0  # Расстояние от начальной вершины до самой себя равно 0
+
+    # BFS
+    while queue:
+        current_vertex = queue.popleft()
+
+        if current_vertex == end_vertex:
+            return distances[current_vertex]
+
+        for neighbor in range(len(adj_matrix)):
+            if adj_matrix[current_vertex][neighbor] == 1 and distances[neighbor] == -1:
+                # Если сосед ещё не посещён, добавляем его в очередь и обновляем расстояние
+                distances[neighbor] = distances[current_vertex] + 1
+                queue.append(neighbor)
+
+    return -1
+
+
+if __name__ == "__main__":
+    # Пример матрицы смежности
+    adj_matrix = [
+        [0, 1, 0, 0],
+        [1, 0, 1, 1],
+        [0, 1, 0, 1],
+        [0, 1, 1, 0]
+    ]
+
+    result = shortest_path_length(adj_matrix, 0, 3)
+    print(f"Длина кратчайшего пути: {result}")
+        
+      </code></pre>
+      <button class="copy-button">копирка</button>
+    </div>
+    <div class="info"></div>
+  </section>
+
+  
+  <section class="alg">
     <h2>os math numpy</h2>
     <div class="code_copy">
       <pre><code class="language-python">
